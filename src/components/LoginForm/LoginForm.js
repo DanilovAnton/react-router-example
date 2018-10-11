@@ -1,9 +1,23 @@
 import React, { Component } from 'react';
+import { withAuth } from '../../context/Auth';
 import loginForm from './LoginForm.module.css';
+import { Redirect } from 'react-router-dom';
 
 class LoginForm extends Component {
+  state = {
+    email: '',
+    password: ''
+  };
+
   handleChangeInput = ({ target: { value, name } }) => {
     this.setState({ [name]: value });
+  };
+
+  handleAuthorize = () => {
+    console.log(this.props)
+    const { authorize } = this.props;
+    const { email, password } = this.state;
+    authorize(email, password);
   };
 
   renderField = () => {
@@ -29,13 +43,20 @@ class LoginForm extends Component {
       );
     });
   };
+
   render() {
+    const { isAuthorized } = this.props;    
+    if (isAuthorized) {
+      return <Redirect to='/home'/>
+    }
     return (
       <div className={loginForm.bg}>
-        <div className="form">
+        <div className={`${loginForm.form} t-form`}>
           {this.renderField()}
           <div className={loginForm.buttons}>
-            <button className={loginForm.button}>Войти</button>
+            <button className={loginForm.button} onClick={this.handleAuthorize}>
+              Войти
+            </button>
           </div>
         </div>
       </div>
@@ -43,4 +64,4 @@ class LoginForm extends Component {
   }
 }
 
-export default LoginForm;
+export default withAuth(LoginForm);
