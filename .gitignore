@@ -9,9 +9,6 @@
 # testing
 /coverage
 
-# production
-/build
-
 # course utils
 /course_scripts
 
