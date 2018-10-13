@@ -4,15 +4,9 @@ import Mail from '../Mail';
 
 class InboxMail extends PureComponent {
   render() {
-    const {
-      match: {
-        params: { id }
-      },
-      data
-    } = this.props;
-    const mail = data.inbox.find(mail => mail.id === id);
-
-    return <Mail {...mail} />;
+    const { data, match } = this.props;
+    const inbox = data.inbox.find(el => el.id === match.params.id);
+    return <Mail header="From" mail={inbox.from} body={inbox.body} />;
   }
 }
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withAuth } from '../../context/Auth';
-import loginForm from './LoginForm.module.css';
+import styles from './LoginForm.module.css';
 import { Redirect } from 'react-router-dom';
 
 class LoginForm extends Component {
@@ -14,7 +14,6 @@ class LoginForm extends Component {
   };
 
   handleAuthorize = () => {
-    console.log(this.props)
     const { authorize } = this.props;
     const { email, password } = this.state;
     authorize(email, password);
@@ -30,12 +29,12 @@ class LoginForm extends Component {
       return (
         <p key={el.field}>
           <label htmlFor={el.field}>
-            <span className={loginForm.labelText}>{el.label}</span>
+            <span className={styles.labelText}>{el.label}</span>
           </label>
           <input
             type={el.field}
             name={el.field}
-            className={`${loginForm.input} t-input-email`}
+            className={`${styles.input} t-input-${el.field}`}
             value={this[el.field]}
             onChange={this.handleChangeInput}
           />
@@ -45,16 +44,17 @@ class LoginForm extends Component {
   };
 
   render() {
-    const { isAuthorized } = this.props;    
+    const { isAuthorized, authError } = this.props;
     if (isAuthorized) {
-      return <Redirect to='/home'/>
+      return <Redirect to="/app" />;
     }
     return (
-      <div className={loginForm.bg}>
-        <div className={`${loginForm.form} t-form`}>
+      <div className={styles.bg}>
+        <div className={`${styles.form} t-form`}>
           {this.renderField()}
-          <div className={loginForm.buttons}>
-            <button className={loginForm.button} onClick={this.handleAuthorize}>
+          {authError && <p className={styles.error}>{authError}</p>}
+          <div className={styles.buttons}>
+            <button className={`${styles.button} t-login`} onClick={this.handleAuthorize}>
               Войти
             </button>
           </div>

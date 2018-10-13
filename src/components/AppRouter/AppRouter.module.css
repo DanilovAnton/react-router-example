@@ -45,4 +45,5 @@
   text-align: center;
   border-bottom: 1px solid;
   padding: 4px 0;
+  text-transform: capitalize;
 }

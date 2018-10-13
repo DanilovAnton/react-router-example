@@ -1,18 +1,12 @@
 import React, { Component } from 'react';
-import home from './Home.module.css';
+import styles from './Home.module.css';
 
-class Home extends Component {
-    render() {
-        return (
-            <div className={home.wrapper}>
-                <div className={home.container}>
-                    <nav className={home.nav}>
-                        <ul className={`${home.navList} t-nav-list`}>
-
-                        </ul>
-                    </nav>
-                </div>        
-            </div>
-        )
-    }
+export default class Home extends Component {
+  render() {
+    return (
+      <div className={styles.container}>
+        <p className="t-greeting">Приветствуем в почтовом клиенте!</p>
+      </div>
+    );
+  }
 }
